@@ -184,19 +184,19 @@ public class DevPostService {
         return posts;
     }
 
-//    @Transactional(readOnly = true)
-//    public List<DevPost> findPost (List<DevPost> post) {
-//
-//        List<DevPost> posts = repository.findAll();
-//
-//        DecimalFormat df = new DecimalFormat("#.##");
-//
-//        postAnswerReviewAvg(posts, df);
-//
-//        posts.sort(Comparator.comparingDouble(DevPost::getStarAvg).reversed());
-//
-//        return posts;
-//    }
+    @Transactional(readOnly = true)
+    public List<DevPost> findPost (List<DevPost> post) {
+
+        List<DevPost> posts = repository.findAll();
+
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        postAnswerReviewAvg(posts, df);
+
+        posts.sort(Comparator.comparingDouble(DevPost::getStarAvg).reversed());
+
+        return posts;
+    }
 
     public void deletePost (long postId, long memberId) {
 
