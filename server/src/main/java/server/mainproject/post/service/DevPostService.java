@@ -98,12 +98,12 @@ public class DevPostService {
 
         verifiedPostMember(find, member.getMemberId());
 
-        Optional.ofNullable(patch.getTitle()).ifPresent(title -> find.setTitle(title));
-        Optional.ofNullable(patch.getContent()).ifPresent(content -> find.setContent(content));
-        Optional.ofNullable(patch.getSourceURL()).ifPresent(link -> find.setSourceURL(link));
-        Optional.ofNullable(patch.getSourceMedia()).ifPresent(source -> find.setSourceMedia(source));
-        Optional.ofNullable(patch.getThumbnailImage()).ifPresent(image -> find.setThumbnailImage(image));
-        Optional.ofNullable(patch.getSorta()).ifPresent(sorta -> find.setSorta(sorta));
+        Optional.ofNullable(patch.getTitle()).ifPresent(find::updateTitle);
+        Optional.ofNullable(patch.getContent()).ifPresent(find::updateContent);
+        Optional.ofNullable(patch.getSourceURL()).ifPresent(find::updateSourceURL);
+        Optional.ofNullable(patch.getSourceMedia()).ifPresent(find::updateSourceMedia);
+        Optional.ofNullable(patch.getThumbnailImage()).ifPresent(find::updateThumbnailImage);
+        Optional.ofNullable(patch.getSorta()).ifPresent(find::updateSorta);
 
         if (patch.getStar() != 0) {
             find.setStar(patch.getStar());
