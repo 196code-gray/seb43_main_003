@@ -30,7 +30,7 @@
 
 <br/>
 
-## [API](https://documenter.getpostman.com/view/25534544/2s93eVXEBJ)
+## [API 문서](https://documenter.getpostman.com/view/25534544/2s93eVXEBJ)
 
 <br/>
 
