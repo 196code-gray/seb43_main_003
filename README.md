@@ -7,6 +7,9 @@
 
 <br/>
 
+## ERD
+![image](https://github.com/codestates-seb/seb43_main_003/assets/88307264/df1cd12b-4fdc-41c3-81b5-c481536e170f)
+
 ## Team
 ### 🌅 Front-end
 
@@ -24,18 +27,6 @@
 | :---: | :---: | :---: |
 | <img src="./image/sangrae.jpeg" width=150px alt="상래"/> | <img src="./image/kyunga.jpeg" width=150px alt="경아"/> | <img src="./image/eunjung.png" width=150px alt="은정"/> |
 |[김상래](https://github.com/ksr0818)|[김경아](https://github.com/kkyunga)|[김은정](https://github.com/196code-gray)|
-
-<br/>
-
-## 맡은 역할
-게시글에 관련된 CRUD  
-게시글 태그 기능  
-게시글 좋아요 기능
-
-<br/>
-
-## ERD
-![image](https://github.com/codestates-seb/seb43_main_003/assets/88307264/df1cd12b-4fdc-41c3-81b5-c481536e170f)
 
 <br/>
 
