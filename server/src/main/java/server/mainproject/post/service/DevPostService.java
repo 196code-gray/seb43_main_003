@@ -11,7 +11,7 @@ import server.mainproject.exception.ExceptionCode;
 import server.mainproject.member.entity.Member;
 import server.mainproject.member.service.MemberService;
 import server.mainproject.post.dto.DevPostDto;
-import server.mainproject.post.dto.DevPostPatchDto;
+import server.mainproject.post.dto.DevPostUpdateDto;
 import server.mainproject.post.entity.DevPost;
 import server.mainproject.post.entity.Recommend;
 import server.mainproject.post.repository.RecommendRepository;
@@ -67,7 +67,7 @@ public class DevPostService {
     }
 
     // 추천 누름 기능
-    public Recommend saveRecommend(long postId, long memberId) {
+    public Recommend savedRecommend(long postId, long memberId) {
 
         Member member = memberService.verifiedMember(memberId);
 
@@ -86,7 +86,7 @@ public class DevPostService {
 
         return recommendRepository.save(recommend);
     }
-    public DevPost updatePost (DevPostPatchDto patch, long postId) {
+    public DevPost updatePost (DevPostUpdateDto patch, long postId) {
         Member member = memberService.verifiedMember(patch.getMemberId());
 
         DevPost find = existsPost(postId);

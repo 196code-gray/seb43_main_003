@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.mainproject.post.dto.DevPostDto;
-import server.mainproject.post.dto.DevPostPatchDto;
+import server.mainproject.post.dto.DevPostUpdateDto;
 import server.mainproject.post.entity.DevPost;
 import server.mainproject.post.mapper.DevPostMapper;
 import server.mainproject.post.repository.DevPostRepository;
@@ -43,11 +43,11 @@ public class DevPostController {
     }
 
     @PatchMapping("/{post-id}/edit")
-    public ResponseEntity patchPost(@PathVariable("post-id") @Positive long postId,
-                                    @RequestBody @Valid DevPostPatchDto patch) {
+    public ResponseEntity updatePost(@PathVariable("post-id") @Positive long postId,
+                                     @RequestBody @Valid DevPostUpdateDto update) {
 
-        return new ResponseEntity(new SingleResponse<>
-                (mapper.EntityToResponse(service.updatePost(patch, postId))), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponse<>
+                (mapper.EntityToResponse(service.updatePost(update, postId))), HttpStatus.OK);
     }
 
     @GetMapping
@@ -103,7 +103,7 @@ public class DevPostController {
     public ResponseEntity recommendsPost(@PathVariable("post-id") @Positive long postId,
                                          @PathVariable("member-id") @Positive long memberId) {
 
-        service.saveRecommend(postId, memberId);
+        service.savedRecommend(postId, memberId);
         return ResponseEntity.ok().build();
     }
 

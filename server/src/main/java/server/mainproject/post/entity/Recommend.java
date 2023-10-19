@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Recommend extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long recommendsId;
+    private long recommendId;
 
     @ManyToOne
     @JoinColumn(name = "POST_ID")

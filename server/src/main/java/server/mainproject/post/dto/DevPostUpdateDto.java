@@ -7,7 +7,7 @@ import server.mainproject.member.entity.Member;
 import java.util.List;
 
 @Getter @Setter
-public class DevPostPatchDto {
+public class DevPostUpdateDto {
 //    private Long postId;
     private Long memberId;
     private String title;
