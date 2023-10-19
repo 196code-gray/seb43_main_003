@@ -73,14 +73,9 @@ public class DevPostService {
 
         DevPost post = existsPost(postId);
 
-        post.getRecommends()
-                .stream()
-                .filter(id -> id.getMember().getMemberId() == memberId)
-                .filter(two -> two.getPost().getPostId() == postId)
-                .findAny()
-                .ifPresent(e -> {
-                    throw new BusinessLogicException(ExceptionCode.ALREADY_LIKES);
-                });
+        verifiedRecommend(memberId, postId).ifPresent(e -> {
+            throw new BusinessLogicException(ExceptionCode.ALREADY_LIKES);
+        });
 
         int like = post.getRecommend();
         post.setRecommend(like + 1);
@@ -198,20 +193,19 @@ public class DevPostService {
         memberService.verifiedMember(memberId);
         DevPost post = existsPost(postId);
 
-        Optional<Recommend> optional = recommendRepository.findAll()
-                .stream()
-                        .filter(id -> id.getMember().getMemberId() == memberId)
-                                .filter(i -> i.getPost().getPostId() == postId)
-                                        .findFirst();
-        Recommend recommend = optional.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_WRITE));
+        Optional<Recommend> opRecommend = verifiedRecommend(memberId, postId);
+        if (opRecommend.isEmpty())
+            throw new BusinessLogicException(ExceptionCode.POST_NOT_WRITE);
+        else recommendRepository.delete(opRecommend.get());
 
         int num = post.getRecommend();
         post.setRecommend(num -1);
         repository.save(post);
-
-        recommendRepository.delete(recommend);
     }
 
+    private Optional<Recommend> verifiedRecommend(long memberId, long postId) {
+        return recommendRepository.findByMemberRecommend(memberId, postId);
+    }
 
     public DevPost existsPost (long postId) {
         Optional<DevPost> optional = repository.findById(postId);
