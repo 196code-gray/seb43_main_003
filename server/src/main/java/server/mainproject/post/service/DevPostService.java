@@ -11,7 +11,7 @@ import server.mainproject.exception.ExceptionCode;
 import server.mainproject.member.entity.Member;
 import server.mainproject.member.service.MemberService;
 import server.mainproject.post.dto.DevPostDto;
-import server.mainproject.post.dto.DevPostPatchDto;
+import server.mainproject.post.dto.DevPostUpdateDto;
 import server.mainproject.post.entity.DevPost;
 import server.mainproject.post.entity.Recommend;
 import server.mainproject.post.repository.RecommendRepository;
@@ -67,20 +67,15 @@ public class DevPostService {
     }
 
     // 추천 누름 기능
-    public Recommend saveRecommend(long postId, long memberId) {
+    public Recommend savedRecommend(long postId, long memberId) {
 
         Member member = memberService.verifiedMember(memberId);
 
         DevPost post = existsPost(postId);
 
-        post.getRecommends()
-                .stream()
-                .filter(id -> id.getMember().getMemberId() == memberId)
-                .filter(two -> two.getPost().getPostId() == postId)
-                .findAny()
-                .ifPresent(e -> {
-                    throw new BusinessLogicException(ExceptionCode.ALREADY_LIKES);
-                });
+        verifiedRecommend(memberId, postId).ifPresent(e -> {
+            throw new BusinessLogicException(ExceptionCode.ALREADY_LIKES);
+        });
 
         int like = post.getRecommend();
         post.setRecommend(like + 1);
@@ -91,19 +86,19 @@ public class DevPostService {
 
         return recommendRepository.save(recommend);
     }
-    public DevPost updatePost (DevPostPatchDto patch, long postId) {
+    public DevPost updatePost (DevPostUpdateDto patch, long postId) {
         Member member = memberService.verifiedMember(patch.getMemberId());
 
         DevPost find = existsPost(postId);
 
         verifiedPostMember(find, member.getMemberId());
 
-        Optional.ofNullable(patch.getTitle()).ifPresent(title -> find.setTitle(title));
-        Optional.ofNullable(patch.getContent()).ifPresent(content -> find.setContent(content));
-        Optional.ofNullable(patch.getSourceURL()).ifPresent(link -> find.setSourceURL(link));
-        Optional.ofNullable(patch.getSourceMedia()).ifPresent(source -> find.setSourceMedia(source));
-        Optional.ofNullable(patch.getThumbnailImage()).ifPresent(image -> find.setThumbnailImage(image));
-        Optional.ofNullable(patch.getSorta()).ifPresent(sorta -> find.setSorta(sorta));
+        Optional.ofNullable(patch.getTitle()).ifPresent(find::updateTitle);
+        Optional.ofNullable(patch.getContent()).ifPresent(find::updateContent);
+        Optional.ofNullable(patch.getSourceURL()).ifPresent(find::updateSourceURL);
+        Optional.ofNullable(patch.getSourceMedia()).ifPresent(find::updateSourceMedia);
+        Optional.ofNullable(patch.getThumbnailImage()).ifPresent(find::updateThumbnailImage);
+        Optional.ofNullable(patch.getSorta()).ifPresent(find::updateSorta);
 
         if (patch.getStar() != 0) {
             find.setStar(patch.getStar());
@@ -184,20 +179,6 @@ public class DevPostService {
         return posts;
     }
 
-    @Transactional(readOnly = true)
-    public List<DevPost> findPost (List<DevPost> post) {
-
-        List<DevPost> posts = repository.findAll();
-
-        DecimalFormat df = new DecimalFormat("#.##");
-
-        postAnswerReviewAvg(posts, df);
-
-        posts.sort(Comparator.comparingDouble(DevPost::getStarAvg).reversed());
-
-        return posts;
-    }
-
     public void deletePost (long postId, long memberId) {
 
         DevPost post = existsPost(postId);
@@ -212,20 +193,19 @@ public class DevPostService {
         memberService.verifiedMember(memberId);
         DevPost post = existsPost(postId);
 
-        Optional<Recommend> optional = recommendRepository.findAll()
-                .stream()
-                        .filter(id -> id.getMember().getMemberId() == memberId)
-                                .filter(i -> i.getPost().getPostId() == postId)
-                                        .findFirst();
-        Recommend recommend = optional.orElseThrow(() -> new BusinessLogicException(ExceptionCode.POST_NOT_WRITE));
+        Optional<Recommend> opRecommend = verifiedRecommend(memberId, postId);
+        if (opRecommend.isEmpty())
+            throw new BusinessLogicException(ExceptionCode.POST_NOT_WRITE);
+        else recommendRepository.delete(opRecommend.get());
 
         int num = post.getRecommend();
         post.setRecommend(num -1);
         repository.save(post);
-
-        recommendRepository.delete(recommend);
     }
 
+    private Optional<Recommend> verifiedRecommend(long memberId, long postId) {
+        return recommendRepository.findByMemberRecommend(memberId, postId);
+    }
 
     public DevPost existsPost (long postId) {
         Optional<DevPost> optional = repository.findById(postId);

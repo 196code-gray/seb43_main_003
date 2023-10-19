@@ -68,6 +68,20 @@ public class DevPost extends Auditable {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Post_Tag> postTags = new ArrayList<>();
 
+    public void updateTitle (String title) {
+        this.title = title;
+    }
+    public void updateContent (String content) {
+        this.content = content;
+    }
+    public void updateName (String name) {
+        this.name = name;
+    }
+    public void updateSourceURL (String sourceURL) {
+        this.sourceURL = sourceURL;
+    }
+
+
     @Builder
     public DevPost (String title, String content, String name, String sourceURL,
                     int star, String sourceMedia, String sorta, String thumbnailImage) {
