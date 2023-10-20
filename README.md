@@ -3,12 +3,28 @@
 * 프로젝트명 : Hello Developer<br/>
 * 프로젝트 소개 : 개발자들에게 도움이 되는 정보, 지식을 공유하는 개발자 커뮤니티 Hello Developer<br/>
 * 프로젝트 기간 : 2023.05.01 - 2023.05.31<br/>
-* 배포링크: http://mainmay.s3-website.ap-northeast-2.amazonaws.com/<br/>
+
+[배포링크](http://mainmay.s3-website.ap-northeast-2.amazonaws.com/)
+
 
 <br/>
 
 ## ERD
 ![image](https://github.com/codestates-seb/seb43_main_003/assets/88307264/df1cd12b-4fdc-41c3-81b5-c481536e170f)
+
+<br/>
+
+## [API 문서](https://documenter.getpostman.com/view/25534544/2s93eVXEBJ)
+Postman으로 작성한 API 문서입니다.
+각 요청에 관한 API
+```
+회원 : /members
+게시글 : /posts
+댓글 : /comments
+추천 : /recommends
+```
+
+<br/>
 
 ## Team
 ### 🌅 Front-end
@@ -27,10 +43,6 @@
 | :---: | :---: | :---: |
 | <img src="./image/sangrae.jpeg" width=150px alt="상래"/> | <img src="./image/kyunga.jpeg" width=150px alt="경아"/> | <img src="./image/eunjung.png" width=150px alt="은정"/> |
 |[김상래](https://github.com/ksr0818)|[김경아](https://github.com/kkyunga)|[김은정](https://github.com/196code-gray)|
-
-<br/>
-
-## [API 문서](https://documenter.getpostman.com/view/25534544/2s93eVXEBJ)
 
 <br/>
 
