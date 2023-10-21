@@ -80,6 +80,15 @@ public class DevPost extends Auditable {
     public void updateSourceURL (String sourceURL) {
         this.sourceURL = sourceURL;
     }
+    public void updateThumbnailImage(String image) {
+        this.thumbnailImage = image;
+    }
+    public void updateSorta(String sorta) {
+        this.sorta = sorta;
+    }
+    public void updateSourceMedia(String media) {
+        this.sourceMedia = media;
+    }
 
 
     @Builder
