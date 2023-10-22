@@ -1,13 +1,30 @@
-<img src="http://mainmay.s3-website.ap-northeast-2.amazonaws.com/assets/carousel-1-31edfaeb.png" alt ="이미지" width=500px height=120px>
-* 팀 명 : 기정사실화<br/>
-* 프로젝트명 : Hello Developer<br/>
-* 프로젝트 소개 : 개발자들에게 도움이 되는 정보, 지식을 공유하는 개발자 커뮤니티 Hello Developer<br/>
-* 프로젝트 기간 : 2023.05.01 - 2023.05.31<br/>
+## Hello, Developer
+<image src="https://github.com/196code-gray/seb43_main_003/assets/88307264/fe0c8f7b-857a-4452-b836-e865f16ea208" width="700" heigth="700">
+
+
+팀 명 : 기정사실화
+
+프로젝트 소개 : 개발자들에게 도움이 되는 정보, 지식을 공유하는 개발자 커뮤니티 Hello Developer  
+
+프로젝트 기간 : 2023.05.01 - 2023.05.31  
 
 [배포링크](http://mainmay.s3-website.ap-northeast-2.amazonaws.com/)
 
+## 프로젝트 미리보기
+#### 개별 게시글 조회
+<image src="https://github.com/196code-gray/seb43_main_003/assets/88307264/391a18d4-e72d-4231-a006-56adce45a12a" width="700" height="500">
+  
+<details>
+<summary> 게시글 작성 </summary>
+<image src="https://github.com/196code-gray/seb43_main_003/assets/88307264/891e4030-ce07-4514-9866-71c23831a6d9" width="700" height="500">
+</details>
 
-<br/>
+<details>
+  <summary> 실시간 순위 & 인기 게시물 조회 </summary>
+  <image src="https://github.com/196code-gray/seb43_main_003/assets/88307264/69910061-04a3-4913-9770-33455fd2cf39" width="700" height="600">
+</details>
+
+
 
 ## ERD
 ![image](https://github.com/codestates-seb/seb43_main_003/assets/88307264/df1cd12b-4fdc-41c3-81b5-c481536e170f)
