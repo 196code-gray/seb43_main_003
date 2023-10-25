@@ -122,7 +122,7 @@ public interface MemberMapper {
 
         return recommends.stream()
                 .map(recommend -> new RecommendResponseDto(
-                        recommend.getRecommendsId(),
+                        recommend.getRecommendId(),
                         recommend.getPost().getPostId(),
                         recommend.getMember().getMemberId(),
                         recommend.getPost().getTitle(),
