@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import server.mainproject.post.dto.DevPostDto;
+import server.mainproject.post.dto.DevPostMainResponse;
 import server.mainproject.post.dto.DevPostUpdateDto;
 import server.mainproject.post.entity.DevPost;
 import server.mainproject.post.mapper.DevPostMapper;
@@ -32,47 +33,49 @@ public class DevPostController {
     private final DevPostMapper mapper;
     private final DevPostRepository repository;
     @PostMapping
-    public ResponseEntity postPost(@RequestBody @Valid DevPostDto.Post post) {
+    public ResponseEntity<SingleResponse<DevPostDto.Response>> postPost(@RequestBody @Valid DevPostDto.Post post) {
 
-        DevPost create = service.savedPost(post);
-        URI uri = URICreator.createUri("/post", create.getPostId());
-
-        return new ResponseEntity(new SingleResponse<>
-                (mapper.EntityToResponse(create)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponse<>
+                (mapper.EntityToResponse(service.savedPost(post))), HttpStatus.OK);
 
     }
 
     @PatchMapping("/{post-id}/edit")
-    public ResponseEntity updatePost(@PathVariable("post-id") @Positive long postId,
-                                     @RequestBody @Valid DevPostUpdateDto update) {
+    public ResponseEntity<SingleResponse<DevPostDto.Response>> updatePost(
+            @PathVariable("post-id") @Positive long postId,
+            @RequestBody @Valid DevPostUpdateDto update) {
 
         return new ResponseEntity<>(new SingleResponse<>
                 (mapper.EntityToResponse(service.updatePost(update, postId))), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity getAllPosts() {
+    public ResponseEntity<SingleResponse<List<DevPostDto.Response>>> getAllPosts() {
 
         List<DevPost> posts = service.findAllPost();
 
-        return new ResponseEntity<>(new SingleResponse<>(mapper.ListResponse(posts)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponse<>
+                (mapper.ListResponse(posts)), HttpStatus.OK);
     }
 
     @GetMapping("/{post-id}")
-    public ResponseEntity getPost (@PathVariable("post-id") @Positive long postId) {
-        DevPost find = service.findPost(postId);
-        return new ResponseEntity(new SingleResponse<>(mapper.EntityToResponse(find)), HttpStatus.OK);
+    public ResponseEntity<SingleResponse<DevPostDto.Response>> getPost (
+            @PathVariable("post-id") @Positive long postId) {
+
+        return new ResponseEntity(new SingleResponse<>
+                (mapper.EntityToResponse(service.findPost(postId))), HttpStatus.OK);
     }
     @GetMapping("/realtime-ranking")
-    public ResponseEntity rankingPosts () {
+    public ResponseEntity<SingleResponse<List<DevPostMainResponse>>> rankingPosts () {
 
         List<DevPost> posts = service.realtimePost();
 
-        return new ResponseEntity<>(new SingleResponse<>(mapper.mainPageResponse(posts)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponse<>
+                (mapper.mainPageResponse(posts)), HttpStatus.OK);
     }
 
     @GetMapping("/popular-ranking")  // 추천수 높은 순
-    public ResponseEntity getPopular() {
+    public ResponseEntity<SingleResponse<List<DevPostMainResponse>>> getPopular() {
         List<DevPost> response = new ArrayList<>();
 
         List<DevPost> textPosts = repository.findBySorta("text");
@@ -90,17 +93,18 @@ public class DevPostController {
         DevPost trendPost = trendPosts.get(0);
         response.add(trendPost);
 
-        return new ResponseEntity<>(new SingleResponse<>(mapper.mainPageResponse(response)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponse<>
+                (mapper.mainPageResponse(response)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{post-id}/{member-id}")
-    public ResponseEntity deletePost (@PathVariable("post-id") @Positive long postId,
+    public ResponseEntity<Object> deletePost (@PathVariable("post-id") @Positive long postId,
                                       @PathVariable("member-id") @Positive long memberId) {
         service.deletePost(postId,memberId);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
     @PostMapping("/{post-id}/recommends/{member-id}")
-    public ResponseEntity recommendsPost(@PathVariable("post-id") @Positive long postId,
+    public ResponseEntity<Object> recommendsPost(@PathVariable("post-id") @Positive long postId,
                                          @PathVariable("member-id") @Positive long memberId) {
 
         service.savedRecommend(postId, memberId);
@@ -108,7 +112,7 @@ public class DevPostController {
     }
 
     @DeleteMapping("/{post-id}/recommends/{member-id}")
-    public ResponseEntity unRecommendsPost(@PathVariable("post-id") @Positive long postId,
+    public ResponseEntity<Object> unRecommendsPost(@PathVariable("post-id") @Positive long postId,
                                            @PathVariable("member-id") @Positive long memberId) {
 
         service.unRecommendPost(postId,memberId);
