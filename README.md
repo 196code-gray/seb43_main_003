@@ -24,6 +24,11 @@
   <image src="https://github.com/196code-gray/seb43_main_003/assets/88307264/69910061-04a3-4913-9770-33455fd2cf39" width="700" height="600">
 </details>
 
+<br/> 
+
+## 사용자 요청 흐름도
+![image](https://github.com/196code-gray/seb43_main_003/assets/88307264/1f0cf9b0-5520-4048-a30a-78e66e37d32a)
+
 
 
 ## ERD
