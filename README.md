@@ -38,8 +38,8 @@
 <br/>
 
 ## [API 문서](https://documenter.getpostman.com/view/25534544/2s93eVXEBJ)
-Postman으로 작성한 API 문서입니다.
-각 요청에 관한 API
+Postman으로 작성한 API 문서입니다.  
+각 요청에 관한 API는 아래와 같습니다.
 ```
 회원 : /members
 게시글 : /posts
