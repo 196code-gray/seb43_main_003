@@ -4,8 +4,7 @@
 
 팀 명 : 기정사실화
 
-프로젝트 소개 : 개발자들에게 도움이 되는 정보, 지식을 공유하는 개발자 커뮤니티 Hello Developer  
-
+프로젝트 소개 : 개발자들에게 도움이 되는 정보, 지식을 공유하는 개발자 커뮤니티  
 프로젝트 기간 : 2023.05.01 - 2023.05.31  
 
 [배포링크](http://mainmay.s3-website.ap-northeast-2.amazonaws.com/)
@@ -27,7 +26,9 @@
 <br/> 
 
 ## 사용자 요청 흐름도
-![image](https://github.com/196code-gray/seb43_main_003/assets/88307264/1f0cf9b0-5520-4048-a30a-78e66e37d32a)
+![image](https://github.com/196code-gray/seb43_main_003/assets/88307264/3c7ad07f-824c-4b1c-9ffc-2c1b685dcb31)
+
+
 
 
 
